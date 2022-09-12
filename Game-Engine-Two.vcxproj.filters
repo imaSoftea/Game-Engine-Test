@@ -19,6 +19,9 @@
     <ClCompile Include="Res\Func\ShaderCreateFunc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Res\Func\TextureHandling.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\default.shader">
@@ -27,5 +30,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Res\Main.h" />
+    <ClInclude Include="Res\stb_image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Res\Textures\Wood.jpg" />
   </ItemGroup>
 </Project>

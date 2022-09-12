@@ -7,11 +7,12 @@
 //Structures
 class ShaderSourceText
 {
-public:
-    std::string vertexSource;
-    std::string fragSource;
+    public:
+        std::string vertexSource;
+        std::string fragSource;
 };
 
+//Compiles the Shader
 static unsigned int CompileShader(unsigned int type, const std::string& source)
 {
     unsigned int id = glCreateShader(type);
@@ -74,6 +75,7 @@ static ShaderSourceText ReadShader(const std::string& filePath)
 
     while (getline(stream, line))
     {
+        //Allows for commenting and ignores "//" lines
         if (((line.find("//")) != std::string::npos) == false)
         {
             //Checking for declaration of shader type
@@ -112,5 +114,6 @@ static ShaderSourceText ReadShader(const std::string& filePath)
 
     return shaderTextOut;
 }
+
 
 
