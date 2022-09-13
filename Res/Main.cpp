@@ -4,6 +4,7 @@
 //In Progress - Abstraction 
 
 #include "Main.h"
+using namespace glm;
 
 //Window Functions
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -21,7 +22,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     //Creating a Window
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Game Engine", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(1080, 1080, "Game Engine", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -40,7 +41,7 @@ int main()
     }
 
     //Setting Viewport Size and Setting Callback
-    glViewport(0, 0, 800, 600);
+    glViewport(0, 0, 1080, 1080);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // Vertex Floats 2-D
@@ -48,13 +49,14 @@ int main()
     int texVertSize = 8;
     float triangleVert[] =
     {
-          -1.0f, -1.0, 0.0f,    
+          -1.0f, -1.0, 1.0f,    
 
-          -1.0f,  1.0f,  0.0f,   
+          -1.0f,  1.0f,  1.0f,   
 
-           1.0f,  -1.0f,  0.0f,   
+           1.0f,  -1.0f,  1.0f,   
 
-           1.0,  1.0f,  0.0f
+           1.0f,  1.0f,  1.0f
+
     };
     float triangleTexVert[] =
     {
@@ -97,10 +99,10 @@ int main()
     unsigned int shader = CreateShader(shaderText.vertexSource,shaderText.fragSource);
     glUseProgram(shader);
 
-    int colorLocation = glGetUniformLocation(shader, "aColor");
+    unsigned int colorLocation = glGetUniformLocation(shader, "aColor");
     if (colorLocation == -1)
     {
-         std::cout << "Uniform Not Found";
+         std::cout << "Uniform Not Found: Color";
     }
 
     // Create a Texture
@@ -109,6 +111,26 @@ int main()
     woodTexture.Bind();
     woodTexture.SetParams();
     woodTexture.LoadTexture(shader);
+
+    // Creating & Testing Transformations
+ 
+    // "Going 3-D"
+    mat4 model = mat4(1.0f);
+    model = rotate(model, radians(-55.0f), vec3(1.0f, 0.0f, 0.0f));
+    mat4 projection;
+    projection = perspective(radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+    mat4 view = mat4(1.0f);
+    view = translate(view, vec3(0.0f, 0.0f, -3.0f));
+    model = scale(model, vec3(0.5f, 0.5f, 0.5f));
+
+    //Setting 3-D Uniforms
+    int modelLoc = glGetUniformLocation(shader, "aModel");
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
+    int viewLoc = glGetUniformLocation(shader, "aView");
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, value_ptr(view));
+    int projLoc = glGetUniformLocation(shader, "aProjection");
+    glUniformMatrix4fv(projLoc, 1, GL_FALSE, value_ptr(projection));
+
     
 
     // Test Color Variables (TO BE REMOVED)
@@ -123,6 +145,10 @@ int main()
         //Drawing
         glBindTexture(GL_TEXTURE_2D, woodTexture.texture);
         //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //Wireframe Mode for testing
+
+        //Test Rotations
+        model = rotate(model, radians(5.0f), vec3(1.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
         glUniform4f(colorLocation, testColor.red, testColor.green, testColor.blue, testColor.alpha);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
