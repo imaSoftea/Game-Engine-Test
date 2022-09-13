@@ -137,8 +137,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Res\Classes\General\Color.cpp" />
+    <ClCompile Include="Res\Classes\Texture\stb.cpp" />
+    <ClCompile Include="Res\Classes\Texture\Texture.cpp" />
     <ClCompile Include="Res\Func\ShaderCreateFunc.cpp" />
-    <ClCompile Include="Res\Func\TextureHandling.cpp" />
     <ClCompile Include="Res\glad.c" />
     <ClCompile Include="Res\Main.cpp" />
   </ItemGroup>
@@ -146,7 +148,9 @@
     <None Include="Shaders\default.shader" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Res\stb_image.h" />
+    <ClInclude Include="Res\Classes\Texture\Texture.h" />
+    <ClInclude Include="Res\Classes\Texture\stb_image.h" />
+    <ClInclude Include="Res\Func\ShaderCreateFunc.h" />
     <ClInclude Include="Res\Main.h" />
   </ItemGroup>
   <ItemGroup>

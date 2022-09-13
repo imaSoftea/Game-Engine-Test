@@ -1,8 +1,4 @@
-#include <GLAD/glad.h>
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <sstream>  
+#include "ShaderCreateFunc.h"
 
 //Structures
 class ShaderSourceText

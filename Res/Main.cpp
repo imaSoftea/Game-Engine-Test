@@ -1,32 +1,13 @@
 // Carter Thompson
 // Work In Progress Game Engine
 
+//In Progress - Abstraction 
+
 #include "Main.h"
 
 //Window Functions
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
-
-//Color Class (TO BE MOVED)
-class Color
-{
-    public:
-        float red;
-        float green;
-        float blue;
-        float alpha;
-
-        Color(float aRed, float aGreen, float aBlue, float aAlpha)
-        {
-            red = aRed;
-            green = aGreen;
-            blue = aBlue;
-            alpha = aAlpha;
-        }
-};
-
-
-void ColorWheel(Color &inputColor, bool &isGoingUp);
 
 //Main Program
 int main() 
@@ -67,13 +48,13 @@ int main()
     int texVertSize = 8;
     float triangleVert[] =
     {
-          -0.5f, -0.5f, 0.0f,    
+          -1.0f, -1.0, 0.0f,    
 
-          -0.5f,  0.5f,  0.0f,   
+          -1.0f,  1.0f,  0.0f,   
 
-           0.5f,  -0.5f,  0.0f,   
+           1.0f,  -1.0f,  0.0f,   
 
-           0.5,  0.5f,  0.0f
+           1.0,  1.0f,  0.0f
     };
     float triangleTexVert[] =
     {
@@ -122,44 +103,16 @@ int main()
          std::cout << "Uniform Not Found";
     }
 
-    //Texturing Settings
-
-    unsigned int texture;
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-
-    // set the texture wrapping parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    // set texture filtering parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    int texWidth, texHeight, nrChannels;
-    unsigned char* data = stbi_load("Res/Textures/Wood.jpg", &texWidth, &texHeight, &nrChannels, 0);
-    if (data)
-    {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth, texHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        std::cout << "Texture not Loaded" << std::endl;
-        std::cout << stbi_failure_reason() << std::endl;
-    }
-    stbi_image_free(data);
-    int texLocation = glGetUniformLocation(shader, "aTexture");
-    if (texLocation == -1)
-    {
-        "Texture Uniform Not Found";
-    }
+    // Create a Texture
+    Texture woodTexture;
+    woodTexture.fileLocation = "Res/Textures/Wood.jpg";
+    woodTexture.Bind();
+    woodTexture.SetParams();
+    woodTexture.LoadTexture(shader);
     
-
-    
-   
 
     // Test Color Variables (TO BE REMOVED)
-    Color testColor = { 0.3f , 0.3f , 1.0f , 1.0f };
+    Color testColor = { 1.0f , 1.0f , 1.0f , 1.0f };
     bool isGoingUp = true;
 
     //Main Loop
@@ -168,9 +121,8 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT);
 
         //Drawing
-        glBindTexture(GL_TEXTURE_2D, texture);
-        ColorWheel(testColor, isGoingUp); //ColorWheel Mode
-        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //Wireframe Mode
+        glBindTexture(GL_TEXTURE_2D, woodTexture.texture);
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //Wireframe Mode for testing
         glUniform4f(colorLocation, testColor.red, testColor.green, testColor.blue, testColor.alpha);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
@@ -203,33 +155,4 @@ void processInput(GLFWwindow* window)
     //This exits the program on hitting the "Escape" key
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
-}
-
-
-//Color Function (TO BE REMOVED)
-
-void ColorWheel(Color &inputColor, bool &isGoingUp)
-{
-    float inc;
-
-    if (isGoingUp)
-    {
-        inc = 0.02f;
-    }
-    else
-    {
-        inc = -0.02f;
-    }
-
-    if (inputColor.blue > 1.0f)
-    {
-        isGoingUp = false;
-    }
-    else if (inputColor.blue < 0.0f)
-    {
-        isGoingUp = true;
-    }
-
-    inputColor.blue += inc;
-    inputColor.red -= inc;
 }

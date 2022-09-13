@@ -4,7 +4,6 @@
 
 
 // All code for the vertex shader goes here
-
 #shader vertex
 #version 330 core
 
@@ -22,8 +21,7 @@ void main()
 
 
 // All code for the fragment shader goes here
-
-#shader frag
+#shader fragment
 #version 330 core
 
 in vec2 TexCoord;
