@@ -6,6 +6,10 @@ It's something I've wanted to do for a while and I'm excited to work on this. I'
 
 I hope to get a really good idea of OpenGL and get really deep into the world of computer graphics. I'm currently only working on this by myself learning from books, Youtube, and the LearnOpenGL site!
 
+Even after probably 60-100 hours on this project it's not much... but slowly and steady!
+Making sure to learn everything!
+
+
 ## Goals
 - Create a bug-free engine that can make basic 3-D games
 - A fairly nice GUI for the user to create objects
