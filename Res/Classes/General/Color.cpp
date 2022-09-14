@@ -1,5 +1,4 @@
-
-class Color
+struct Color
 {
     public:
         float red;

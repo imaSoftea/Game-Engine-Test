@@ -1,15 +1,7 @@
-#include "ShaderCreateFunc.h"
-
-//Structures
-class ShaderSourceText
-{
-    public:
-        std::string vertexSource;
-        std::string fragSource;
-};
+#include "ShaderCreate.h"
 
 //Compiles the Shader
-static unsigned int CompileShader(unsigned int type, const std::string& source)
+unsigned int CompileShader(unsigned int type, const std::string& source)
 {
     unsigned int id = glCreateShader(type);
     const char* src = source.c_str();
@@ -34,7 +26,7 @@ static unsigned int CompileShader(unsigned int type, const std::string& source)
 }
 
 //Creating Shaders
-static unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
+unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
 {
     unsigned int program = glCreateProgram();
     unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
@@ -51,7 +43,7 @@ static unsigned int CreateShader(const std::string& vertexShader, const std::str
     return program;
 }
 
-static ShaderSourceText ReadShader(const std::string& filePath)
+ShaderSourceText ReadShader(const std::string& filePath)
 {
     //Get the stream
     std::ifstream stream(filePath);

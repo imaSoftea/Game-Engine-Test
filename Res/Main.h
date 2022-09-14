@@ -1,8 +1,8 @@
 #ifndef MAIN
 #define MAIN
 
-#include "Func\ShaderCreateFunc.cpp"
-#include "Classes\Texture\Texture.cpp"
+#include "Func\ShaderCreate.h"
+#include "Classes\Texture\Texture.h"
 #include "Classes\General\Color.cpp"
 #include <iostream>
 #include <GLAD/glad.h>
@@ -10,5 +10,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "Func/CreateWindow.h"
 
 #endif MAIN

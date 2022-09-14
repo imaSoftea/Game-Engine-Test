@@ -4,45 +4,14 @@
 //In Progress - Abstraction 
 
 #include "Main.h"
-using namespace glm;
 
-//Window Functions
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow* window);
+using namespace glm;
 
 //Main Program
 int main() 
 {
-    //Initiantiating GLFW Window
-    glfwInit();
-
-    //Configuring Window
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    //Creating a Window
-    GLFWwindow* window = glfwCreateWindow(1080, 1080, "Game Engine", NULL, NULL);
-    if (window == NULL)
-    {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(1);
-
-    
-    //On Failure w/ Glad
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return -1;
-    }
-
-    //Setting Viewport Size and Setting Callback
-    glViewport(0, 0, 1080, 1080);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    //Create Window
+    GLFWwindow* window = CreateWindow();
 
     // Vertex Floats 2-D
     int vertSize = 12;
@@ -148,6 +117,7 @@ int main()
 
         //Test Rotations
         model = rotate(model, radians(5.0f), vec3(1.0f, 1.0f, 0.0f));
+
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
         glUniform4f(colorLocation, testColor.red, testColor.green, testColor.blue, testColor.alpha);
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -169,16 +139,3 @@ int main()
 
 // Window Functions
 
-//Adjusting viewport on resize
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-    glViewport(0, 0, width, height);
-}
-
-//Processes inputs
-void processInput(GLFWwindow* window)
-{
-    //This exits the program on hitting the "Escape" key
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
-}

@@ -16,7 +16,7 @@
     <ClCompile Include="Res\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Res\Func\ShaderCreateFunc.cpp">
+    <ClCompile Include="Res\Func\ShaderCreate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Res\Classes\Texture\Texture.cpp">
@@ -26,6 +26,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Res\Classes\General\Color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Res\Func\CreateWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,7 +41,8 @@
     <ClInclude Include="Res\Main.h" />
     <ClInclude Include="Res\Classes\Texture\stb_image.h" />
     <ClInclude Include="Res\Classes\Texture\Texture.h" />
-    <ClInclude Include="Res\Func\ShaderCreateFunc.h" />
+    <ClInclude Include="Res\Func\ShaderCreate.h" />
+    <ClInclude Include="Res\Func\CreateWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Res\Textures\Wood.jpg" />
