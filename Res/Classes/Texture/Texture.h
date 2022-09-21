@@ -8,18 +8,18 @@
 
 class Texture
 {
-public:
+    public:
 
-    // Variables
-    unsigned int texture;
-    int texWidth, texHeight, nrChannels;
-    unsigned char* data;
-    std::string fileLocation;
-    int texLocation;
+        // Variables
+        unsigned int texture;
+        int texWidth, texHeight, nrChannels;
+        unsigned char* data;
+        std::string fileLocation;
+        int texLocation;
 
-    void Bind();
-    void SetParams();
-    void LoadTexture(unsigned int shader);
+        void Bind();
+        void SetParams();
+        void LoadTexture(unsigned int shader);
 };
 
 #endif

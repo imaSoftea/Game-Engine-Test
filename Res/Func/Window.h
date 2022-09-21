@@ -1,4 +1,4 @@
-#ifndef CREATE_WINDOW
+#ifndef WINDOW
 
 #include <iostream>
 #include <GLAD/glad.h>

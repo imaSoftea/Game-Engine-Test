@@ -1,4 +1,4 @@
-#include "CreateWindow.h"
+#include "Window.h"
 
 //Adjusting viewport on resize
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)

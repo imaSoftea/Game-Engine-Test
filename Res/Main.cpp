@@ -9,54 +9,9 @@ using namespace glm;
 
 //Main Program
 int main() 
-{
-    //Create Window
+{   
+
     GLFWwindow* window = CreateWindow();
-
-    // Vertex Floats 2-D
-    int vertSize = 12;
-    int texVertSize = 8;
-    float triangleVert[] =
-    {
-          -1.0f, -1.0, 1.0f,    
-
-          -1.0f,  1.0f,  1.0f,   
-
-           1.0f,  -1.0f,  1.0f,   
-
-           1.0f,  1.0f,  1.0f
-
-    };
-    float triangleTexVert[] =
-    {
-        0.0f, 0.0f,
-
-        0.0f, 1.0f,
-
-        1.0f, 0.0f,
-
-        1.0f, 1.0f
-    };
-
-    //Buffers
-    unsigned int VAO;
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
-    
-    unsigned int bufferOne;
-    glGenBuffers(1, &bufferOne);
-    glBindBuffer(GL_ARRAY_BUFFER, bufferOne);   
-    glBufferData(GL_ARRAY_BUFFER, vertSize * sizeof(float), triangleVert, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
-
-    unsigned int bufferTwo;
-    glGenBuffers(1, &bufferTwo);
-    glBindBuffer(GL_ARRAY_BUFFER, bufferTwo);
-    glBufferData(GL_ARRAY_BUFFER, texVertSize * sizeof(float), triangleTexVert, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
-    
 
     //Shader Stuff
     ShaderSourceText shaderText = ReadShader("Shaders/default.shader");
@@ -74,22 +29,13 @@ int main()
          std::cout << "Uniform Not Found: Color";
     }
 
-    // Create a Texture
-    Texture woodTexture;
-    woodTexture.fileLocation = "Res/Textures/Wood.jpg";
-    woodTexture.Bind();
-    woodTexture.SetParams();
-    woodTexture.LoadTexture(shader);
-
-    // Creating & Testing Transformations
- 
     // "Going 3-D"
     mat4 model = mat4(1.0f);
-    model = rotate(model, radians(-55.0f), vec3(1.0f, 0.0f, 0.0f));
+    model = rotate(model, radians(0.0f), vec3(1.0f, 0.0f, 0.0f));
     mat4 projection;
-    projection = perspective(radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+    projection = perspective(radians(45.0f), 1000.0f / 1000.0f, 0.1f, 100.0f);
     mat4 view = mat4(1.0f);
-    view = translate(view, vec3(0.0f, 0.0f, -3.0f));
+    view = translate(view, vec3(0.0f, 0.0f, -5.0f));
     model = scale(model, vec3(0.5f, 0.5f, 0.5f));
 
     //Setting 3-D Uniforms
@@ -100,28 +46,24 @@ int main()
     int projLoc = glGetUniformLocation(shader, "aProjection");
     glUniformMatrix4fv(projLoc, 1, GL_FALSE, value_ptr(projection));
 
-    
-
     // Test Color Variables (TO BE REMOVED)
     Color testColor = { 1.0f , 1.0f , 1.0f , 1.0f };
-    bool isGoingUp = true;
+
+    //Creating my cube model
+    Model cubeOne(shader);
 
     //Main Loop
     while (!glfwWindowShouldClose(window))
     {
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glEnable(GL_DEPTH_TEST);
 
-        //Drawing
-        glBindTexture(GL_TEXTURE_2D, woodTexture.texture);
-        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //Wireframe Mode for testing
+        cubeOne.renderModel();
 
         //Test Rotations
-        model = rotate(model, radians(5.0f), vec3(1.0f, 1.0f, 0.0f));
-
+        model = rotate(model, radians(0.4f), vec3(1.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
-        glUniform4f(colorLocation, testColor.red, testColor.green, testColor.blue, testColor.alpha);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
+        glUniform4f(colorLocation, testColor.red, testColor.green, testColor.blue, testColor.alpha);;
 
         //Buffering & Events
         glfwSwapBuffers(window);
@@ -136,6 +78,3 @@ int main()
 
     return 0;
 }
-
-// Window Functions
-

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -138,9 +138,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Res\Classes\General\Color.cpp" />
+    <ClCompile Include="Res\Classes\Model\Mesh\Mesh.cpp" />
+    <ClCompile Include="Res\Classes\Model\Model.cpp" />
     <ClCompile Include="Res\Classes\Texture\stb.cpp" />
     <ClCompile Include="Res\Classes\Texture\Texture.cpp" />
-    <ClCompile Include="Res\Func\CreateWindow.cpp" />
+    <ClCompile Include="Res\Func\Window.cpp" />
     <ClCompile Include="Res\Func\ShaderCreate.cpp" />
     <ClCompile Include="Res\glad.c" />
     <ClCompile Include="Res\Main.cpp" />
@@ -149,9 +151,11 @@
     <None Include="Shaders\default.shader" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Res\Classes\Model\Mesh\Mesh.h" />
+    <ClInclude Include="Res\Classes\Model\Model.h" />
     <ClInclude Include="Res\Classes\Texture\Texture.h" />
     <ClInclude Include="Res\Classes\Texture\stb_image.h" />
-    <ClInclude Include="Res\Func\CreateWindow.h" />
+    <ClInclude Include="Res\Func\Window.h" />
     <ClInclude Include="Res\Func\ShaderCreate.h" />
     <ClInclude Include="Res\Main.h" />
   </ItemGroup>
