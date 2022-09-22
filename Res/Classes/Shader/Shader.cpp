@@ -1,7 +1,13 @@
-#include "ShaderCreate.h"
+#include "Shader.h"
+
+//Getters
+unsigned int Shader::getProgram()
+{
+    return program;
+}
 
 //Compiles the Shader
-unsigned int CompileShader(unsigned int type, const std::string& source)
+unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
 {
     unsigned int id = glCreateShader(type);
     const char* src = source.c_str();
@@ -26,24 +32,24 @@ unsigned int CompileShader(unsigned int type, const std::string& source)
 }
 
 //Creating Shaders
-unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
+void Shader::CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
 {
-    unsigned int program = glCreateProgram();
+    unsigned int aProgram = glCreateProgram();
     unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
     unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
 
-    glAttachShader(program, vs);
-    glAttachShader(program, fs);
-    glLinkProgram(program);
-    glValidateProgram(program);
+    glAttachShader(aProgram, vs);
+    glAttachShader(aProgram, fs);
+    glLinkProgram(aProgram);
+    glValidateProgram(aProgram);
 
     glDeleteShader(vs);
     glDeleteShader(fs);
 
-    return program;
+    program = aProgram;
 }
 
-ShaderSourceText ReadShader(const std::string& filePath)
+void Shader::ReadShader(const std::string& filePath)
 {
     //Get the stream
     std::ifstream stream(filePath);
@@ -100,8 +106,12 @@ ShaderSourceText ReadShader(const std::string& filePath)
     shaderTextOut.vertexSource = shaderText[0].str();
     shaderTextOut.fragSource = shaderText[1].str();
 
-    return shaderTextOut;
+    shaderSourceText = shaderTextOut;
 }
 
-
-
+//Constructor
+Shader::Shader(std::string& filePath)
+{
+    ReadShader(filePath);
+    CreateShader(shaderSourceText.vertexSource, shaderSourceText.fragSource);
+}

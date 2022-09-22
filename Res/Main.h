@@ -1,7 +1,7 @@
 #ifndef MAIN
 #define MAIN
 
-#include "Func\ShaderCreate.h"
+#include "Classes\Shader\Shader.h"
 #include "Classes\Texture\Texture.h"
 #include "Classes\General\Color.cpp"
 #include <iostream>

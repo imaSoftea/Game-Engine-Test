@@ -14,43 +14,37 @@ int main()
     GLFWwindow* window = CreateWindow();
 
     //Shader Stuff
-    ShaderSourceText shaderText = ReadShader("Shaders/default.shader");
-    std::cout << "VERTEX" << std::endl;
-    std::cout << shaderText.vertexSource << std::endl;
-    std::cout << "FRAGMENT" << std::endl;
-    std::cout << shaderText.fragSource << std::endl;
+    string location = "Shaders/default.shader";
+    Shader cubeShader(location);
+    glUseProgram(cubeShader.getProgram());
 
-    unsigned int shader = CreateShader(shaderText.vertexSource,shaderText.fragSource);
-    glUseProgram(shader);
-
-    unsigned int colorLocation = glGetUniformLocation(shader, "aColor");
+    unsigned int colorLocation = glGetUniformLocation(cubeShader.getProgram(), "aColor");
     if (colorLocation == -1)
     {
          std::cout << "Uniform Not Found: Color";
     }
 
+    //Creating my cube models
+    Model cubeOne(cubeShader.getProgram());
+    cubeOne.getTransform().translatePos(-1.0f, 0.0f, -3.0f);
+    Model cubeTwo(cubeShader.getProgram());
+    cubeTwo.getTransform().translatePos(1.0f, 0.0f, -3.0f);
+
     // "Going 3-D"
-    mat4 model = mat4(1.0f);
-    model = rotate(model, radians(0.0f), vec3(1.0f, 0.0f, 0.0f));
     mat4 projection;
     projection = perspective(radians(45.0f), 1000.0f / 1000.0f, 0.1f, 100.0f);
     mat4 view = mat4(1.0f);
     view = translate(view, vec3(0.0f, 0.0f, -5.0f));
-    model = scale(model, vec3(0.5f, 0.5f, 0.5f));
 
     //Setting 3-D Uniforms
-    int modelLoc = glGetUniformLocation(shader, "aModel");
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
-    int viewLoc = glGetUniformLocation(shader, "aView");
+    int viewLoc = glGetUniformLocation(cubeShader.getProgram(), "aView");
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, value_ptr(view));
-    int projLoc = glGetUniformLocation(shader, "aProjection");
+    int projLoc = glGetUniformLocation(cubeShader.getProgram(), "aProjection");
     glUniformMatrix4fv(projLoc, 1, GL_FALSE, value_ptr(projection));
 
     // Test Color Variables (TO BE REMOVED)
     Color testColor = { 1.0f , 1.0f , 1.0f , 1.0f };
-
-    //Creating my cube model
-    Model cubeOne(shader);
+    glUniform4f(colorLocation, testColor.red, testColor.green, testColor.blue, testColor.alpha);;
 
     //Main Loop
     while (!glfwWindowShouldClose(window))
@@ -59,11 +53,11 @@ int main()
         glEnable(GL_DEPTH_TEST);
 
         cubeOne.renderModel();
+        cubeTwo.renderModel();
 
         //Test Rotations
-        model = rotate(model, radians(0.4f), vec3(1.0f, 1.0f, 0.0f));
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
-        glUniform4f(colorLocation, testColor.red, testColor.green, testColor.blue, testColor.alpha);;
+        cubeOne.getTransform().rotatePos(1.0f, 1.0f, 1.0f, 0.0f);
+        cubeTwo.getTransform().rotatePos(1.0f, -1.0f, -1.0f, 0.0f);
 
         //Buffering & Events
         glfwSwapBuffers(window);
@@ -73,7 +67,7 @@ int main()
         processInput(window);
     }
 
-    glDeleteProgram(shader);
+    glDeleteProgram(cubeShader.getProgram());
     glfwTerminate();
 
     return 0;

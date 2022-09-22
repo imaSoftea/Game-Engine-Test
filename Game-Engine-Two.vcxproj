@@ -138,12 +138,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Res\Classes\General\Color.cpp" />
+    <ClCompile Include="Res\Classes\General\Transform.cpp" />
     <ClCompile Include="Res\Classes\Model\Mesh\Mesh.cpp" />
     <ClCompile Include="Res\Classes\Model\Model.cpp" />
+    <ClCompile Include="Res\Classes\Shader\Shader.cpp" />
     <ClCompile Include="Res\Classes\Texture\stb.cpp" />
     <ClCompile Include="Res\Classes\Texture\Texture.cpp" />
     <ClCompile Include="Res\Func\Window.cpp" />
-    <ClCompile Include="Res\Func\ShaderCreate.cpp" />
     <ClCompile Include="Res\glad.c" />
     <ClCompile Include="Res\Main.cpp" />
   </ItemGroup>
@@ -151,12 +152,13 @@
     <None Include="Shaders\default.shader" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Res\Classes\General\Transform.h" />
     <ClInclude Include="Res\Classes\Model\Mesh\Mesh.h" />
     <ClInclude Include="Res\Classes\Model\Model.h" />
+    <ClInclude Include="Res\Classes\Shader\Shader.h" />
     <ClInclude Include="Res\Classes\Texture\Texture.h" />
     <ClInclude Include="Res\Classes\Texture\stb_image.h" />
     <ClInclude Include="Res\Func\Window.h" />
-    <ClInclude Include="Res\Func\ShaderCreate.h" />
     <ClInclude Include="Res\Main.h" />
   </ItemGroup>
   <ItemGroup>

@@ -19,15 +19,15 @@ unsigned int* Mesh::getIndexOrder()
 //Data Size Functions
 int Mesh::vertSize()
 {
-    return verticeData.size();
+    return (int)verticeData.size();
 }
 int Mesh::texVertSize()
 {
-    return textureMap.size();
+    return (int)textureMap.size();
 }
 int Mesh::indexSize()
 {
-    return indexOrder.size();
+    return (int)indexOrder.size();
 }
 
 
@@ -109,7 +109,6 @@ Mesh::Mesh()
         1, 7, 5
     };
 
-   std::cout << sizeof(cubeIndices);
     verticeData = cubeVert;
     textureMap = cubeTexVert;
     indexOrder = cubeIndices;

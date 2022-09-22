@@ -1,5 +1,6 @@
 #include "Model.h"
 
+//Getter Functions
 Mesh Model::getMesh()
 {
 	return mesh;
@@ -7,6 +8,10 @@ Mesh Model::getMesh()
 Texture Model::getTexture()
 {
 	return texture;
+}
+Transform& Model::getTransform()
+{
+    return transform;
 }
 
 void Model::renderModel()
@@ -38,13 +43,16 @@ void Model::renderModel()
     //Shader Loading
     glBindTexture(GL_TEXTURE_2D, texture.texture); //Im sorry this naming is horrible... will change
 
-    //Draw
+    //Set Unforms
+    glUniformMatrix4fv(transformationUniform, 1, GL_FALSE, value_ptr(getTransform().getModelPos()));
+
+    //Drawing
     glDrawElements(GL_TRIANGLES, mesh.indexSize(), GL_UNSIGNED_INT, NULL); 
 }
 
 Model::Model(unsigned int aShader)
 {
-
+    //Assigning Texture
     Texture woodTexture;
     woodTexture.fileLocation = "Res/Textures/Wood.jpg";
     woodTexture.Bind();
@@ -52,4 +60,7 @@ Model::Model(unsigned int aShader)
     texture = woodTexture;
     texture.LoadTexture(shader);
     shader = aShader;
+
+    //Setting up Unform Stuff
+    transformationUniform = glGetUniformLocation(shader, "aModel");
 }
