@@ -24,6 +24,7 @@
     <ProjectGuid>{c730081d-5f65-426c-ae8e-b396a5842a83}</ProjectGuid>
     <RootNamespace>GameEngineTwo</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Render-Engine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -144,6 +145,7 @@
     <ClCompile Include="Res\Classes\Shader\Shader.cpp" />
     <ClCompile Include="Res\Classes\Texture\stb.cpp" />
     <ClCompile Include="Res\Classes\Texture\Texture.cpp" />
+    <ClCompile Include="Res\Func\BuildScene.cpp" />
     <ClCompile Include="Res\Func\Window.cpp" />
     <ClCompile Include="Res\glad.c" />
     <ClCompile Include="Res\Main.cpp" />
@@ -158,6 +160,7 @@
     <ClInclude Include="Res\Classes\Shader\Shader.h" />
     <ClInclude Include="Res\Classes\Texture\Texture.h" />
     <ClInclude Include="Res\Classes\Texture\stb_image.h" />
+    <ClInclude Include="Res\Func\BuildScene.h" />
     <ClInclude Include="Res\Func\Window.h" />
     <ClInclude Include="Res\Main.h" />
   </ItemGroup>

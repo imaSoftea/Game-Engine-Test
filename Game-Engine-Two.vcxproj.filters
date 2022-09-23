@@ -40,6 +40,9 @@
     <ClCompile Include="Res\Classes\Shader\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Res\Func\BuildScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\default.shader">
@@ -55,6 +58,7 @@
     <ClInclude Include="Res\Classes\Model\Mesh\Mesh.h" />
     <ClInclude Include="Res\Classes\General\Transform.h" />
     <ClInclude Include="Res\Classes\Shader\Shader.h" />
+    <ClInclude Include="Res\Func\BuildScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Res\Textures\Wood.jpg" />

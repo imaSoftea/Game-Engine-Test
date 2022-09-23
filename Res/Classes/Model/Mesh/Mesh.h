@@ -1,5 +1,6 @@
 #ifndef MESH
 #define MESH
+
 #include <vector>
 #include <iostream>
 
