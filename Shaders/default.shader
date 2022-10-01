@@ -31,8 +31,10 @@ void main()
 in vec2 TexCoord;
 out vec4 FragColor;
 
+
 uniform vec4 aColor;
 uniform sampler2D aTexture;
+
 
 void main()
 {

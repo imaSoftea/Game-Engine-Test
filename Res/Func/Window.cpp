@@ -30,7 +30,7 @@ GLFWwindow* CreateWindow()
     {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
-        abort;
+        abort();
     }
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
@@ -40,7 +40,7 @@ GLFWwindow* CreateWindow()
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
-        abort;
+        abort();
     }
 
     //Setting Viewport Size and Setting Callback

@@ -48,6 +48,8 @@
     <None Include="Shaders\default.shader">
       <Filter>Shader Files</Filter>
     </None>
+    <None Include="glfw3.dll" />
+    <None Include="assimp-vc142-mtd.dll" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Res\Main.h" />
